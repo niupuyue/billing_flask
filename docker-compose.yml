@@ -1,40 +1,23 @@
-version: '3'
+version: "3"
+
 services:
   mysql:
     image: "mysql:5.7"
-    container_name: mysql
     restart: always
-    ports:
-      - "23306:3306"
-    volumes:
-      - "./dockerdata/mysql/data:/var/lib/mysql"
-      - "./dockerdata/mysql/initdb:/docker-entrypoint-initdb.d"
     environment:
-      LANG: C.UTF-8
-      TZ: Asia/Shanghai
       MYSQL_ROOT_PASSWORD: 123456
-    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-    networks:
-      flask-network:
-        ipv4_address: 172.10.1.31
+      TZ: Asia/Shanghai
+    ports:
+      - 23307:3306
+    volumes:
+      - ./dockerdata/mysql/data:/var/lib/mysql
+      - ./dockerdata/mysql/initdb:/docker-entrypoint-initdb.d
 
-  flask:
-    build:
-      context: .
-      dockerfile: Dockerfile.server
-    container_name: flask
+  redis:
+    image: redis:6.2.5-alpine3.14
     restart: always
     ports:
-      - "8000:8000"
-    depends_on:
-      - mysql
-    networks:
-      flask-network:
-        ipv4_address: 172.10.1.11
-
-networks:
-  flask-network:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 172.10.0.0/16
+      - 26379:6379
+    command: redis-server --appendonly yes
+    volumes:
+      - ./dockerdata/redis/:/data/

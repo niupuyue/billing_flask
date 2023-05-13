@@ -28,7 +28,7 @@ class IYingConfig:
     # redis配置 HOST
     REDIS_HOST = '127.0.0.1'
     # redis配置 PORT
-    REDIS_PORT = 6379
+    REDIS_PORT = 26379
     # 配置MySql数据库 用户名
     MYSQL_USERNAME = "root"
     # 配置MySql数据库 密码
@@ -36,9 +36,9 @@ class IYingConfig:
     # 配置MySql数据库 HOST
     MYSQL_HOST = "127.0.0.1"
     # 配置MySql数据库 PORT
-    MYSQL_PORT = 3306
+    MYSQL_PORT = 23307
     # 配置MySql数据库 名称
-    MYSQL_DATABASE = "iYingBilling"
+    MYSQL_DATABASE = "billing_flask"
     # 设置MySql数据库的连接配置信息
     SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://{MYSQL_USERNAME}:{urlquote(MYSQL_PASSWORD)}@{MYSQL_HOST}:{MYSQL_PORT}/{MYSQL_DATABASE}?charset=utf8mb4"
     # 设置日志等级

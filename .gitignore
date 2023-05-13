@@ -3,3 +3,5 @@ migrations
 .idea
 logs
 build
+dockerdata/mysql/data
+dockerdata/redis
