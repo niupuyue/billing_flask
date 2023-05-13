@@ -36,6 +36,24 @@ def init_db():
     print("基础数据存入")
 
 
+# 创建一个新的用户
+@BaseCommand.command("user")
+def add_normal_user():
+    user_base = UserBase(
+        username='admin',
+        deviceid='1234567',
+        password_hash='pbkdf2:sha256:150000$raM7mDSr$58fe069c3eac01531fc8af85e6fc200655dd2588090530084d182e6ec9d52c85',
+        create_at=now_time,
+        create_timestamp=datetime.datetime.timestamp(now_time),
+        enable=1,
+        realname='超级管理',
+        remark='要是不能把握时机，就要终身蹭蹬，一事无成！',
+        avatar='http://127.0.0.1:5000/_uploads/photos/1617291580000.jpg',
+    )
+    db.session.add(user_base)
+    db.session.commit()
+
+
 @BaseCommand.command()
 @click.option('--type', prompt="请输入类型", help='新增的类型')
 @click.option('--name', prompt="请输入新增的名称", help='新增的名称')
