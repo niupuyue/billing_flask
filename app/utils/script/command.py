@@ -15,6 +15,7 @@ now_time = datetime.datetime.now()
 userdata = [
     UserBase(
         username='admin',
+        deviceid='123456',
         password_hash='pbkdf2:sha256:150000$raM7mDSr$58fe069c3eac01531fc8af85e6fc200655dd2588090530084d182e6ec9d52c85',
         create_at=now_time,
         enable=1,

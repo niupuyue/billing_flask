@@ -1,5 +1,6 @@
 alembic==1.10.4
 APScheduler==3.10.1
+async-timeout==4.0.2
 backports.zoneinfo==0.2.1
 blinker==1.6.2
 cffi==1.15.1
@@ -29,6 +30,7 @@ PyMySQL==1.0.3
 python-dateutil==2.8.2
 pytz==2023.3
 pytz-deprecation-shim==0.1.0.post0
+redis==4.5.5
 six==1.16.0
 SQLAlchemy==2.0.12
 timedelta==2020.12.3

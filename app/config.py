@@ -29,6 +29,8 @@ class IYingConfig:
     REDIS_HOST = '127.0.0.1'
     # redis配置 PORT
     REDIS_PORT = 26379
+    # 设置redis的密码
+    REDIS_PASSWD= "123456"
     # 配置MySql数据库 用户名
     MYSQL_USERNAME = "root"
     # 配置MySql数据库 密码
@@ -60,3 +62,6 @@ class IYingConfig:
         'coalesce': False,
         'max_instances': 3
     }
+    JWT_EXPIRE_DELTA_TIME = 60 * 60 * 24
+    JWT_SECRET_KEY = 'iying-billing'
+    JWT_ALGORITHMS = 'HS256'
