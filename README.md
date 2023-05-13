@@ -11,6 +11,41 @@
 5. IOS(正在开发中...)
 
 # 项目结构
+```text
+.
+├── Dockerfile
+├── README.md
+├── app
+├── app.py
+├── docker-compose.yml
+├── dockerdata
+├── git
+├── gunicorn.conf.py
+├── main.py
+├── migrations
+├── requirements.txt
+├── static
+├── status
+└── venv
+```
+其中dockerdata文件夹主要用来存放与docker相关的文件
+```text
+.
+├── mysql
+│   ├── data
+│   └── initdb
+└── redis
+    ├── appendonly.aof
+    └── dump.rdb
+```
+
+> 生成如上所示的目录结构使用的是tree，在mac命令中输入tree，即可获得当前目录下所有的文件结构，Windows系统中使用tree main命令；
+
+> brew install tree #mac环境下安装tree命令
+
+> tree -L 1 # 深度1
+
+> tree ufo 展示子目录
 
 # 使用方式
 
