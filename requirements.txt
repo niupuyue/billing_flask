@@ -11,6 +11,7 @@ Flask-APScheduler==1.12.4
 Flask-Login==0.6.2
 flask-marshmallow==0.15.0
 Flask-Migrate==4.0.4
+Flask-Pagination==0.0.1
 Flask-pymysql==0.2.3
 Flask-SQLAlchemy==3.0.3
 Flask-Uploads==0.2.1

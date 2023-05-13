@@ -18,7 +18,7 @@ def get_user_info():
     # 根据token获取用户的id
     token_data = JWTManager.verify_jwt(token)
     print("解析token得到的user_id={}".format(token_data))
-    if token_data is not "error":
+    if token_data != "error":
         # 根据user_id查询得到用户基本信息并将数据返回
         user_base = UserBase.query.filter(UserBase.id == token_data.get("data").get("user_id")).first()
         if not user_base:
@@ -79,3 +79,75 @@ def regist_tourist():
         'data': tourist_token
     }
     return jsonify(result)
+
+
+@user_base.post("/update_avator/")
+def update_avator():
+    # 首先验证用户的token是否失效
+    token = request.headers["Authorization"]
+    if not token:
+        # toekn为null，则表示用户没有登录，则无法获取基本信息
+        return jsonify(success=False, msg="Token失效~")
+    # 验证用户传递过来的头像
+    avator_url = request.get_json()["avator_url"]
+    if not avator_url:
+        return jsonify(success=False, msg="传递的头像地址不正确~")
+    # 根据token获取用户的id
+    token_data = JWTManager.verify_jwt(token)
+    print("解析token得到的user_id={}".format(token_data))
+    if token_data != "error":
+        # 根据user_id查询到对应的用户信息
+        user_id = token_data.get("data").get("user_id")
+        UserBase.query.filter(UserBase.id == user_id).update({'avatar': avator_url})
+        db.session.commit()
+        return jsonify(success=True, msg="更新头像成功")
+    else:
+        return jsonify(success=False, msg="用户token已失效~")
+
+
+@user_base.post("/update_username/")
+def update_username():
+    # 首先验证用户的token是否失效
+    token = request.headers["Authorization"]
+    if not token:
+        # toekn为null，则表示用户没有登录，则无法获取基本信息
+        return jsonify(success=False, msg="Token失效~")
+    # 获取用户新昵称
+    username = request.get_json()["username"]
+    if not username:
+        return jsonify(success=False, msg="用户昵称为空，不能修改~")
+    # 根据token获取用户的id
+    token_data = JWTManager.verify_jwt(token)
+    print("解析token得到的user_id={}".format(token_data))
+    if token_data != "error":
+        user_id = token_data.get("data").get("user_id")
+        UserBase.query.filter(UserBase.id == user_id).update({'username': username})
+        db.session.commit()
+        return jsonify(success=True, msg="更新昵称成功")
+    else:
+        return jsonify(success=False, msg="用户token已失效~")
+
+
+@user_base.post("/update_password/")
+def update_password():
+    # 首先验证用户的token是否失效
+    token = request.headers["Authorization"]
+    if not token:
+        # toekn为null，则表示用户没有登录，则无法获取基本信息
+        return jsonify(success=False, msg="Token失效~")
+    # 验证用户传递过来的头像
+    req_password = request.get_json()["password"]
+    if not req_password:
+        return jsonify(success=False, msg="传递密码不正确~")
+    # 根据token获取用户的id
+    token_data = JWTManager.verify_jwt(token)
+    print("解析token得到的user_id={}".format(token_data))
+    if token_data != "error":
+        # 根据user_id查询到对应的用户信息
+        user_id = token_data.get("data").get("user_id")
+        user_base = UserBase.query.filter(UserBase.id == user_id).first()
+        user_base.set_password(req_password)
+        db.session.commit()
+        return jsonify(success=True, msg="更新密码成功")
+    else:
+        return jsonify(success=False, msg="用户token已失效~")
