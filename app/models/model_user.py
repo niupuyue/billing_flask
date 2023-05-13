@@ -23,6 +23,8 @@ class UserBase(db.Model, UserMixin):
     update_timestamp = db.Column(db.BigInteger, default=datetime.timestamp(datetime.now()),
                                  onupdate=datetime.timestamp(datetime.now()))
 
+    bill_list = db.relationship('BillDetail', backref='bill_detail', lazy=True)
+
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 
