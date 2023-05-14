@@ -40,6 +40,32 @@ def add_bill():
         return jsonify(success=False, msg="Token失效了~")
 
 
+# 删除账单
+@bill_base.post('/delete/')
+def delete_bill():
+    # 首先验证用户的token是否失效
+    token = request.headers["Authorization"]
+    if not token:
+        # toekn为null，则表示用户没有登录，则无法获取基本信息
+        return jsonify(success=False, msg="Token失效~")
+    # 获取传递的数据
+    bill_id = int(request.get_json()["bill_id"])
+    if not bill_id:
+        return jsonify(success=False, msg="参数不完整~")
+    token_data = JWTManager.verify_jwt(token)
+    print("解析token得到的user_id={}".format(token_data))
+    if token_data != "error":
+        # 根据user_id查询到对应的用户信息
+        user_id = token_data.get("data").get("user_id")
+        bill_detail = BillDetail.query.filter_by(id=bill_id, user_id=user_id).first()
+        if bill_detail:
+            bill_detail.enable = 0
+            db.session.commit()
+            return jsonify(success=True, msg="删除成功~")
+        else:
+            return jsonify(success=False, msg="删除失败~")
+
+
 # 获取用户全部账单信息
 @bill_base.get('/list/')
 def get_user_bill():
