@@ -74,6 +74,10 @@ flask db upgrade
 flask admin init
 # 初始化 账单分类表 数据
 flask admin init-type
+# 设置安装跟进 requirements
+pip3 install -r requirements.txt
+pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
+pip3 freeze > requirements.txt
 ```
 在执行的过程中会发生如下错误：
 ```angular2html
